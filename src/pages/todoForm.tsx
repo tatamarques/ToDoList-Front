@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useState, useRef } from 'react'
 import { useEffect } from 'react';
 import {Form} from '@unform/web';
 import TodoTask from '../components/TodoTask';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 import api from '../services/api';
 
@@ -32,8 +32,9 @@ const TodoForm: React.FC = () =>{
   };  
 
   useEffect(() => {
-    api.get<ItodoList[]>("/").then((response) => {
+     api.get<ItodoList[]>("/").then((response) => {
       setTodoList(response.data);
+      
   })
   },[]);
 
@@ -90,14 +91,15 @@ const TodoForm: React.FC = () =>{
   return(
     <Container>
       <Content>
-      <Form ref={formRef} onSubmit={handleSubmit} >
+      <Form ref={formRef} onSubmit={handleSubmit}  >
         <h1>To do List</h1>
         <input 
+          ref={formRef}
           type='text'
           placeholder='Title'
           value={title}
           name='title'
-          className='todo-title' 
+          className='title' 
           onChange={handleChange}>
 
         </input>
@@ -106,7 +108,7 @@ const TodoForm: React.FC = () =>{
           placeholder='Description'
           value={description}
           name='description'
-          className='todo-description' 
+          className='description' 
           onChange={handleChange}>
         </input>  
            
